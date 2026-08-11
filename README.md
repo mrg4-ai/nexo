@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nexo
 
-## Getting Started
+Nexo Local V1 es una PWA financiera local-first para organizar finanzas personales y de un pequeño negocio. Los datos viven en `LocalStorage`: no hay cuentas, inicio de sesión, base de datos de servidor ni sincronización en la nube. Después de una primera carga correcta, las rutas y recursos cacheados pueden utilizarse sin conexión en navegadores compatibles.
 
-First, run the development server:
+## Características
+
+- **Personal:** cuentas, ingresos, gastos, transferencias, presupuestos, metas y aportes, activos, pasivos, patrimonio y gráficos.
+- **Negocio:** productos, costos unitarios, ganancia, margen, inventario, flujo de caja, estado de resultados, balance general e indicadores financieros.
+- **Sistema:** PWA instalable, funcionamiento offline, backup/importación JSON, exportación CSV y experiencia responsive para desktop y móvil.
+
+## Stack
+
+- Next.js 16.3.0 y React 19.2.8.
+- TypeScript 5, Zustand 5.0.14, HeroUI 3.2.4, Recharts 3.10.1 y lucide-react 1.31.0.
+- Vitest 4.1.10 y Playwright 1.51.1.
+- Tailwind CSS 4 mediante PostCSS.
+
+## Requisitos
+
+- Node.js 20.9.0 o superior.
+- pnpm 11, según el campo `packageManager`.
+- Chromium instalado por Playwright para las pruebas E2E.
+
+## Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Desarrollo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+El Service Worker sólo se registra en producción para evitar cachés obsoletos durante el desarrollo.
 
-## Learn More
+## Pruebas
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm test:e2e
+pnpm test:pwa
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`test:pwa` genera primero el build y ejecuta el flujo offline sobre `next start`. También existe `playwright.production.config.ts` para ejecutar la regresión funcional contra un build ya generado.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Build de producción
 
-## Deploy on Vercel
+```bash
+pnpm build
+pnpm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+En el despliegue final puede definirse `NEXT_PUBLIC_APP_URL` con el origen HTTPS público para producir URLs absolutas correctas en metadata social.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Modo demo
+
+```bash
+NEXT_PUBLIC_DEMO_DATA=true pnpm dev
+```
+
+Con `NEXT_PUBLIC_DEMO_DATA=true`, una instalación sin datos inicia con el dataset determinista de `services/seed.ts`. Con `false` o sin la variable, inicia vacía. Un dataset guardado siempre tiene prioridad; cambiar la variable no sustituye datos existentes.
+
+## Persistencia de datos
+
+Nexo utiliza la clave `nexo:v2:app` y migra el legado `nexo:v1:app` cuando es válido. Las escrituras se validan antes de reemplazar el valor. El borrado elimina sólo claves con prefijo `nexo:`. Exporta backups periódicamente: borrar los datos del navegador, cambiar de perfil u origen puede eliminar o aislar la información.
+
+## PWA y modo offline
+
+`app/manifest.ts` define la instalación y `public/sw.js` cachea el shell y recursos de la aplicación. `Cache Storage` no contiene el dataset financiero; éste continúa en `LocalStorage`. Reconectarse no sincroniza con ningún servicio remoto.
+
+## Documentación
+
+El índice completo está en [docs/README.md](docs/README.md).
+
+## Limitaciones actuales
+
+V1 usa sólo PEN, un navegador/perfil/origen y almacenamiento local. No incluye autenticación, nube, colaboración, conexión bancaria, conversión de moneda ni recuperación remota. La disponibilidad offline y la instalación varían según el navegador. Consulta [docs/limitaciones-v1.md](docs/limitaciones-v1.md).
