@@ -10,7 +10,19 @@ No existe una cuenta de Nexo ni una copia automática en la nube. Tus datos pert
 
 ## Primer inicio
 
-En modo limpio verás un estado vacío. Crea la primera cuenta, elige su tipo e ingresa el saldo que ya tenía. Luego usa **Nuevo movimiento** para registrar el primer ingreso o gasto. El saldo inicial no es un ingreso del mes: representa dinero existente antes de comenzar el registro.
+En `/` encontrarás la presentación pública. Pulsa **Empezar** para abrir `/dashboard`. Si el espacio está limpio, Nexo solicita tu nombre antes de mostrar la aplicación. Es obligatorio, se recortan espacios al inicio/final y puedes usar hasta 60 caracteres.
+
+Después verás la guía inicial de seis pasos. Puedes avanzar, retroceder, omitirla o finalizarla; no modifica datos financieros. Con el perfil listo, crea la primera cuenta, elige su tipo e ingresa el saldo que ya tenía. Luego registra el primer ingreso. El saldo inicial no es un ingreso del mes: representa dinero existente antes de comenzar el registro.
+
+## Perfil, guía y ayuda
+
+- Cambia tu nombre en **Configuración → Perfil y guía → Editar**. El saludo se actualiza sin recargar.
+- Usa **Ver guía inicial** en Configuración o `/help` para volver a abrirla. Sólo se reinicia el estado de la guía.
+- **Ayuda** abre el centro de ayuda dentro de Nexo con explicaciones breves de cada módulo, backups, instalación y uso offline.
+
+## Modo demo
+
+Desde la landing, **Probar demo** abre datos de ejemplo. El indicador **Modo demo** permanece visible. **Salir de demo** vuelve a `/` y conserva intactos tu perfil y datos normales. En Configuración, **Restablecer demo** recupera el dataset de ejemplo original. Los datos demo (`nexo-demo:v2:app`) y personales (`nexo:v2:app`) están aislados.
 
 ## Inicio / Dashboard
 

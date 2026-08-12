@@ -4,7 +4,7 @@ Nexo es una Progressive Web App: un sitio responsive con manifest, iconos, modo 
 
 ## Manifest e iconos
 
-`app/manifest.ts` define nombre Nexo, `start_url` y `scope` `/`, display standalone, colores y categorías. `public/icons/` contiene 192×192, 512×512, maskable 512×512 y Apple Touch 180×180. `app/favicon.ico` cubre la pestaña.
+`app/manifest.ts` define nombre Nexo, `start_url: /dashboard`, `scope: /`, display standalone, colores y categorías. La PWA instalada abre el producto, no la landing. `public/icons/` contiene 192×192, 512×512, maskable 512×512 y Apple Touch 180×180. `app/favicon.ico` cubre la pestaña.
 
 ## Service Worker
 
@@ -12,8 +12,8 @@ Nexo es una Progressive Web App: un sitio responsive con manifest, iconos, modo 
 
 `public/sw.js` usa:
 
-- `nexo-shell-v3` para rutas, manifest e iconos;
-- `nexo-assets-v3` para scripts, estilos, fuentes e imágenes;
+- `nexo-shell-v4` para landing, `/dashboard`, `/help`, rutas de producto, manifest e iconos;
+- `nexo-assets-v4` para scripts, estilos, fuentes e imágenes;
 - navegación network-first con navigation preload;
 - assets cache-first;
 - respuesta 503 explícita si una ruta offline nunca fue guardada.
@@ -23,7 +23,7 @@ Una URL inválida online llega al not-found normal de Next.js. Una ruta no dispo
 ## Cache Storage frente a LocalStorage
 
 - **Cache Storage:** archivos y respuestas que permiten abrir la aplicación.
-- **LocalStorage:** dataset financiero del usuario bajo `nexo:v2:app`.
+- **LocalStorage:** dataset real bajo `nexo:v2:app` y demo aislada bajo `nexo-demo:v2:app`.
 
 El Service Worker no lee ni escribe `LocalStorage`.
 

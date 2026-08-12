@@ -1,4 +1,4 @@
-# Arquitectura de Nexo Local V1
+# Arquitectura de Nexo Local V1.1
 
 ## Principios
 
@@ -19,6 +19,16 @@ flowchart TD
   Finance --> UI
   SW["Service Worker"] --> Cache["Cache Storage: shell y assets"]
 ```
+
+La landing `/` usa una composición pública sin `AppShell`. Las rutas de producto —incluidas `/dashboard` y `/help`— usan `AppShell`; la hidratación financiera no se ejecuta en la landing.
+
+## Perfil, onboarding y guía
+
+`UserProfile` y `Settings.guideCompleted` viven dentro del mismo `AppData` validado. `AppExperience` solicita el nombre si falta y presenta la guía no bloqueante después de guardarlo. Configuración actualiza el perfil mediante acciones del store; ningún componente accede directamente a `LocalStorage`.
+
+## Contextos real y demo
+
+El store selecciona una de dos instancias del mismo `LocalAppRepository`. El contexto real usa `nexo:v2:app`; demo usa `nexo-demo:v2:app` y el prefijo `nexo-demo:`. Componentes y servicios financieros son idénticos. Un indicador de sesión elige el contexto, pero el dataset persiste únicamente a través del repositorio correspondiente.
 
 ## Capas principales
 

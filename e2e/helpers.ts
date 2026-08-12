@@ -1,5 +1,5 @@
 import { expect, type Page } from "@playwright/test";
-export async function emptyApp(page:Page){await page.goto("/");await page.evaluate(()=>{localStorage.clear();localStorage.setItem("unrelated:key","keep")});await page.reload()}
+export async function emptyApp(page:Page){await page.goto("/dashboard?mode=real");await page.evaluate(()=>{localStorage.clear();sessionStorage.clear();localStorage.setItem("unrelated:key","keep")});await page.reload();await page.getByLabel("Nombre").fill("Persona E2E");await page.getByRole("button",{name:"Continuar"}).click();await page.getByRole("button",{name:"Omitir"}).click()}
 const queues=new WeakMap<Page,string[]>(),installed=new WeakSet<Page>();
 export function answerPrompts(page:Page,answers:string[]){const queue=queues.get(page)??[];queue.push(...answers);queues.set(page,queue);if(installed.has(page))return;installed.add(page);page.on("dialog",async dialog=>{await dialog.accept(dialog.type()==="prompt"?(queues.get(page)?.shift()??""):"")})}
 export async function createAccount(page:Page,name="BCP",balance="0"){answerPrompts(page,[name,balance]);await page.getByRole("button",{name:/Crear primera cuenta|Nueva cuenta/}).click();await page.getByText("Disponible para gastar").waitFor()}

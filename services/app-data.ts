@@ -14,7 +14,8 @@ export function isAppData(value:unknown):value is AppData{
   const d=value as unknown as AppData;
   const arrays=[d.accounts,d.transactions,d.budgets,d.goals,d.assets,d.liabilities,d.products,d.inventory,d.recurring,d.snapshots];
   if(arrays.some(collection=>!Array.isArray(collection))||!object(d.settings)||!object(d.business))return false;
-  if(d.settings.schemaVersion!==2||d.settings.currency!=="PEN"||d.settings.appearance!=="dark"||!FINANCIAL_PERIOD.test(d.settings.selectedPeriod)||!nonNegative(d.settings.monthlySavingsTarget)||!object(d.settings.categories)||!Array.isArray(d.settings.categories.personal)||!Array.isArray(d.settings.categories.business)||![...d.settings.categories.personal,...d.settings.categories.business].every(text))return false;
+  if(d.settings.schemaVersion!==2||d.settings.currency!=="PEN"||d.settings.appearance!=="dark"||!FINANCIAL_PERIOD.test(d.settings.selectedPeriod)||!nonNegative(d.settings.monthlySavingsTarget)||typeof d.settings.guideCompleted!=="boolean"||!object(d.settings.categories)||!Array.isArray(d.settings.categories.personal)||!Array.isArray(d.settings.categories.business)||![...d.settings.categories.personal,...d.settings.categories.business].every(text))return false;
+  if(d.profile!==null&&(!base(d.profile)||!text(d.profile.name)||d.profile.name.trim().length>60))return false;
   if(!base(d.business)||!text(d.business.name)||arrays.some(collection=>!uniqueIds(collection)))return false;
   if(!d.accounts.every(account=>base(account)&&text(account.name)&&["bank","cash","wallet","savings","other"].includes(account.type)&&account.currency==="PEN"&&finite(account.initialBalance)&&(account.archivedAt===undefined||text(account.archivedAt))))return false;
   const accountIds=new Set(d.accounts.map(account=>account.id));
@@ -35,5 +36,7 @@ export function migrateAppData(value:unknown):AppData|null{
   const settings=object(candidate.settings)?candidate.settings:null;
   if(settings?.schemaVersion===1){settings.schemaVersion=2;settings.selectedPeriod="2026-08";}
   if(settings?.schemaVersion===2&&!settings.categories)settings.categories={personal:["Alimentación","Transporte","Vivienda","Servicios","Ingresos","Otros"],business:["Ventas","Costos","Gastos operativos","Servicios","Otros"]};
+  if(settings?.schemaVersion===2&&typeof settings.guideCompleted!=="boolean")settings.guideCompleted=false;
+  if(settings?.schemaVersion===2&&!("profile" in candidate))candidate.profile=null;
   return isAppData(candidate)?candidate:null;
 }

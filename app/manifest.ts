@@ -2,11 +2,11 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    id: "/",
+    id: "/dashboard",
     name: "Nexo",
     short_name: "Nexo",
     description: "Finanzas personales y de negocio, guardadas localmente en tu dispositivo.",
-    start_url: "/",
+    start_url: "/dashboard",
     scope: "/",
     display: "standalone",
     orientation: "any",

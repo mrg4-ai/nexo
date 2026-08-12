@@ -1,8 +1,10 @@
-# Limitaciones y alcance de V1
+# Limitaciones y alcance de V1.1
 
 ## Lo que sí soporta
 
-Nexo Local V1 ofrece CRUD financiero personal y de negocio, cálculos derivados, reportes simplificados, backup JSON, CSV, responsive, PWA y operaciones locales offline después de cachear la aplicación.
+Nexo Local V1.1 ofrece CRUD financiero personal y de negocio, cálculos derivados, reportes simplificados, backup JSON, CSV, responsive, PWA y operaciones locales offline después de cachear la aplicación.
+
+V1.1 añade landing, identidad local, guía, ayuda y demo aislada sin cambiar el motor financiero.
 
 ## Límites deliberados
 

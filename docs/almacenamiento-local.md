@@ -8,6 +8,7 @@ Permite una demo autónoma, local-first y sin infraestructura de servidor. Es su
 
 - `nexo:v2:app`: `AppData` vigente.
 - `nexo:v1:app`: clave legada leída para migración.
+- `nexo-demo:v2:app`: `AppData` de demostración, completamente independiente.
 - Prefijo propiedad de la aplicación: `nexo:`.
 
 El esquema vive en `services/app-data.ts`; `Settings.schemaVersion` debe ser `2`.
@@ -22,7 +23,7 @@ Antes de `localStorage.setItem`, `isAppData` valida el dataset completo. El stor
 
 ## Migración V1 → V2
 
-La migración cambia `schemaVersion` a 2, establece el período inicial compatible y añade categorías si faltan. Versiones futuras, versión ausente o V1 parcialmente malformada se rechazan sin migración destructiva.
+La migración cambia `schemaVersion` a 2, establece el período inicial compatible y añade categorías si faltan. Para V2 anterior a V1.1 completa `profile: null` y `guideCompleted: false`; después, el onboarding recoge el nombre. Versiones futuras, versión ausente o V1 parcialmente malformada se rechazan sin migración destructiva.
 
 ## Corrupción y fallback
 
@@ -30,7 +31,7 @@ JSON inválido, colecciones parciales, IDs huérfanos o enums desconocidos no en
 
 ## Eliminar todos los datos
 
-`clear()` recorre las claves y elimina únicamente las que comienzan con `nexo:`. Una clave como `third-party-key` permanece. Después, el store usa `emptyData()`; no vuelve a sembrar demo durante esa sesión.
+El repositorio real elimina únicamente claves `nexo:` y el repositorio demo únicamente `nexo-demo:`. Como los prefijos difieren en el carácter posterior a `nexo`, restablecer demo no toca `nexo:v2:app`; borrar datos reales tampoco borra la demo. Una clave como `third-party-key` permanece.
 
 ## Limitaciones
 

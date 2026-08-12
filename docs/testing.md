@@ -16,7 +16,7 @@ pnpm test:pwa
 
 ## Cobertura actual
 
-La ejecución RC final contiene **53 pruebas unitarias/integración en 6 archivos**:
+La ejecución V1.1 contiene **56 pruebas unitarias/integración en 7 archivos**:
 
 - redondeo, ingresos, gastos, transferencias y saldos;
 - disponible, presupuestos, metas y patrimonio;
@@ -28,8 +28,9 @@ La ejecución RC final contiene **53 pruebas unitarias/integración en 6 archivo
 - V1→V2, versión futura, corrupción, referencias huérfanas y quota failure;
 - borrado limitado a claves `nexo:`;
 - contrato PWA e iconos físicos.
+- migración no destructiva de perfil/guía y separación de namespaces real/demo.
 
-Playwright funcional cubre primera cuenta, movimientos y transferencias, edición/eliminación, presupuestos, metas, patrimonio, productos, costos, inventario, backup, borrado con namespace y navegación móvil. La prueba PWA cubre manifest, control del worker, rutas cacheadas, CRUD offline, recarga, backup offline y fallback 503.
+Playwright contiene **10 pruebas funcionales de producción** y **1 prueba PWA/offline**. Cubre landing, navegación a `/dashboard`, onboarding, persistencia y edición del perfil, ayuda/guía, aislamiento y reset demo, responsive de landing, primera cuenta, movimientos y transferencias, presupuestos, metas, patrimonio, productos, costos, inventario, backup, borrado con namespace y navegación móvil. La prueba PWA cubre manifest con inicio en `/dashboard`, control del worker, rutas cacheadas, CRUD offline, recarga, backup offline y fallback 503.
 
 La regresión RC adicional carga 1.000 movimientos, busca/filtra, confirma que el chart se renderiza y recorre nueve tamaños entre 320×568 y 1920×1080 sin overflow horizontal.
 

@@ -15,10 +15,15 @@ scripts/                   Generación reproducible de iconos PWA
 
 ## Archivos relevantes
 
-- `app/layout.tsx`: metadata, viewport, fuentes, registro PWA y `AppShell`.
-- `app/manifest.ts`: manifest instalable con scope `/` e iconos.
+- `app/layout.tsx`: metadata, viewport, fuentes, registro PWA y selección pública/aplicación mediante `AppFrame`.
+- `app/page.tsx`: landing pública sin shell financiero; `app/dashboard/page.tsx` contiene el Overview Personal.
+- `app/help/page.tsx`: centro de ayuda para usuarios.
+- `app/manifest.ts`: manifest instalable con `start_url: /dashboard`, scope `/` e iconos.
 - `app/**/page.tsx`: conecta cada URL con su vista; no contiene lógica financiera. `app/not-found.tsx` y `app/error.tsx` presentan fallos sin stack traces.
 - `components/app-shell.tsx`: navegación, workspace, período, hidratación y error global.
+- `components/onboarding.tsx`: perfil inicial y guía ligera de seis pasos.
+- `components/profile-settings.tsx`: edición de nombre, reapertura de guía y reset demo.
+- `components/help-view.tsx`: contenido de ayuda dentro de la aplicación.
 - `components/completeness-views.tsx`: CRUD de cuentas, presupuestos, metas, patrimonio, productos, costos, inventario y configuración.
 - `components/views.tsx`: dashboards y reportes derivados.
 - `components/transaction-sheet.tsx`: alta/edición/eliminación de movimientos y accesibilidad del diálogo.
@@ -31,7 +36,7 @@ scripts/                   Generación reproducible de iconos PWA
 - `services/backup.ts`: backup JSON y CSV UTF-8.
 - `services/seed.ts`: demo determinista; no se usa si ya existen datos.
 - `services/rc-fixtures.ts`: fixtures deterministas de volumen, sólo importados por pruebas.
-- `repositories/local/app.repository.ts`: claves Nexo, lectura, escritura y borrado con namespace.
+- `repositories/local/app.repository.ts`: misma implementación configurable para namespaces real y demo.
 - `public/sw.js`: precache, navegación network-first, assets cache-first y fallback offline 503.
 - `e2e/core.spec.ts`, `mobile.spec.ts`, `pwa.spec.ts`: flujos reales en navegador.
 

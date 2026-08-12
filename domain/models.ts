@@ -14,9 +14,11 @@ export interface InventoryItem extends BaseRecord { productId: string; quantity:
 export interface RecurringTransaction extends BaseRecord { type: "income" | "expense"; amount: number; day: number; description: string; active: boolean }
 export interface MonthlySnapshot extends BaseRecord { month: string; assets: number; liabilities: number }
 export interface Business extends BaseRecord { name: string }
-export interface Settings { currency: "PEN"; appearance: "dark"; monthlySavingsTarget: number; schemaVersion: 2; selectedPeriod: string; categories:{personal:string[];business:string[]} }
+export interface UserProfile extends BaseRecord { name: string }
+export interface Settings { currency: "PEN"; appearance: "dark"; monthlySavingsTarget: number; schemaVersion: 2; selectedPeriod: string; guideCompleted: boolean; categories:{personal:string[];business:string[]} }
 
 export interface AppData {
+  profile: UserProfile | null;
   accounts: Account[]; transactions: Transaction[]; budgets: Budget[]; goals: SavingGoal[];
   assets: Asset[]; liabilities: Liability[]; products: Product[]; inventory: InventoryItem[];
   recurring: RecurringTransaction[]; snapshots: MonthlySnapshot[]; business: Business; settings: Settings;

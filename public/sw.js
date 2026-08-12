@@ -1,8 +1,8 @@
 const CACHE_PREFIX = "nexo-shell-";
-const CACHE_VERSION = "v3";
+const CACHE_VERSION = "v4";
 const SHELL_CACHE = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const ASSET_CACHE = `nexo-assets-${CACHE_VERSION}`;
-const APP_ROUTES = ["/","/transactions","/accounts","/budgets","/goals","/net-worth","/settings","/business","/business/products","/business/inventory","/business/cash-flow","/business/ratios","/business/income-statement","/business/balance-sheet"];
+const APP_ROUTES = ["/","/dashboard","/transactions","/accounts","/budgets","/goals","/net-worth","/settings","/help","/business","/business/products","/business/inventory","/business/cash-flow","/business/ratios","/business/income-statement","/business/balance-sheet"];
 const PRECACHE = [...APP_ROUTES,"/manifest.webmanifest","/favicon.ico","/icons/icon-192.png","/icons/icon-512.png","/icons/maskable-512.png","/icons/apple-touch-icon.png"];
 
 self.addEventListener("install", event => {

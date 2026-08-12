@@ -1,6 +1,6 @@
-# Documentación de Nexo Local V1
+# Documentación de Nexo Local V1.1
 
-Este directorio describe el proyecto implementado. No contiene funcionalidades hipotéticas.
+Este directorio describe el proyecto implementado, incluida la landing, el perfil local, onboarding, ayuda y demo aislada de V1.1. No contiene funcionalidades hipotéticas.
 
 - [Manual de usuario](manual-usuario.md): uso cotidiano, conceptos y protección de datos.
 - [Arquitectura](arquitectura.md): capas, flujo de datos y principios local-first.

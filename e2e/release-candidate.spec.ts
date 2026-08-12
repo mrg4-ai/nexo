@@ -7,7 +7,7 @@ test("1.000 movimientos, filtros, charts, importes extremos y matriz responsive"
   data.transactions[999].description = "Descripción extensa con coma, tildes y contenido que debe truncarse visualmente sin destruir la lista";
   await page.addInitScript(dataset => localStorage.setItem("nexo:v2:app", JSON.stringify(dataset)), data);
   const started = Date.now();
-  await page.goto("/");
+  await page.goto("/dashboard");
   await expect(page.getByText("Disponible para gastar")).toBeVisible();
   expect(Date.now() - started).toBeLessThan(10000);
   await expect(page.locator(".recharts-responsive-container").first()).toBeVisible();

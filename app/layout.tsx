@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import "@heroui/react/styles";
-import { AppShell } from "@/components/app-shell";
+import { AppFrame } from "@/components/app-frame";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 
 const geist=Geist({variable:"--font-geist-sans",subsets:["latin"]});
@@ -21,4 +21,4 @@ export const metadata:Metadata={
   twitter:{card:"summary_large_image",images:publicUrl?["/og.png"]:undefined},
 };
 
-export default function RootLayout({children}:LayoutProps<"/">){return <html lang="es" className={`${geist.variable} dark h-full antialiased`}><body className="min-h-full"><ServiceWorkerRegistration/><AppShell>{children}</AppShell></body></html>}
+export default function RootLayout({children}:LayoutProps<"/">){return <html lang="es" className={`${geist.variable} dark h-full antialiased`}><body className="min-h-full"><ServiceWorkerRegistration/><AppFrame>{children}</AppFrame></body></html>}

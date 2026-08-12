@@ -19,7 +19,9 @@ Todas las entidades principales están en `domain/models.ts`. Los registros con 
 - **RecurringTransaction:** ingreso/gasto, monto, día, descripción y estado activo. Alimenta proyecciones y disponible.
 - **MonthlySnapshot:** etiqueta de mes, activos y pasivos para la serie histórica.
 - **Settings:** PEN, tema oscuro, objetivo mensual, versión 2, período y categorías.
-- **AppData:** raíz atómica que agrupa todas las colecciones, `business` y `settings`.
+- **UserProfile:** identidad local con `id`, nombre, `createdAt` y `updatedAt`. El nombre es obligatorio, se recorta y admite hasta 60 caracteres.
+- **Settings:** también persiste `guideCompleted`, que sólo indica si la guía inicial fue finalizada u omitida.
+- **AppData:** raíz atómica que agrupa `profile`, todas las colecciones, `business` y `settings`.
 
 ## Relaciones y alcance
 

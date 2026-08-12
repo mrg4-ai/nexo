@@ -27,7 +27,7 @@ Todas las casillas permanecen pendientes hasta que una persona pruebe el desplie
 
 - [ ] Confirmar indicador/opción de instalación y abrir ventana independiente.
 - [ ] En DevTools → Application comprobar manifest, scope `/`, iconos y worker activo.
-- [ ] Comprobar caches `nexo-shell-v3` y `nexo-assets-v3`.
+- [ ] Comprobar caches `nexo-shell-v4` y `nexo-assets-v4`.
 - [ ] Activar Offline, navegar, recargar, hacer CRUD y exportar backup.
 - [ ] Una ruta nunca guardada devuelve 503 offline; una URL inválida online muestra not-found.
 - [ ] Simular una nueva versión y confirmar eliminación de cachés Nexo viejos sin tocar `nexo:v2:app`.

@@ -1,12 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { answerPrompts, createAccount, createMovement } from "./helpers";
+import { answerPrompts, createAccount, createMovement, emptyApp } from "./helpers";
 
-const cachedRoutes=["/","/transactions","/accounts","/budgets","/goals","/net-worth","/settings","/business","/business/products","/business/inventory","/business/cash-flow","/business/ratios","/business/income-statement","/business/balance-sheet"];
+const cachedRoutes=["/","/dashboard","/transactions","/accounts","/budgets","/goals","/net-worth","/settings","/help","/business","/business/products","/business/inventory","/business/cash-flow","/business/ratios","/business/income-statement","/business/balance-sheet"];
 
 test("installs its production shell and preserves local CRUD offline",async({page,context})=>{
-  await page.goto("/");
-  await page.evaluate(()=>localStorage.clear());
-  await page.reload();
+  await emptyApp(page);
   await page.waitForFunction(()=>Boolean(navigator.serviceWorker.controller));
 
   await page.evaluate(async()=>{localStorage.setItem("rc:update-marker","keep");await caches.open("nexo-shell-v2");for(const registration of await navigator.serviceWorker.getRegistrations())await registration.unregister()});
@@ -15,7 +13,7 @@ test("installs its production shell and preserves local CRUD offline",async({pag
   expect(await page.evaluate(()=>localStorage.getItem("rc:update-marker"))).toBe("keep");
 
   const manifest=await page.evaluate(async()=>await (await fetch("/manifest.webmanifest")).json());
-  expect(manifest).toMatchObject({name:"Nexo",short_name:"Nexo",start_url:"/",scope:"/",display:"standalone"});
+  expect(manifest).toMatchObject({name:"Nexo",short_name:"Nexo",start_url:"/dashboard",scope:"/",display:"standalone"});
   expect(manifest.icons).toEqual(expect.arrayContaining([expect.objectContaining({sizes:"192x192"}),expect.objectContaining({sizes:"512x512",purpose:"maskable"})]));
 
   await createAccount(page,"Offline BCP","100");

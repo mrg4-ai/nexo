@@ -1,2 +1,3 @@
 import { CompleteSettingsView } from "@/components/completeness-views";
-export default function Page(){return <CompleteSettingsView/>}
+import { ProfileSettings } from "@/components/profile-settings";
+export default function Page(){return <><ProfileSettings/><CompleteSettingsView/></>}

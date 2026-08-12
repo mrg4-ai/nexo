@@ -3,7 +3,7 @@ import { createAccount, createMovement, emptyApp } from "./helpers";
 
 test("mobile movement sheet, edit/delete and navigation", async ({ page }) => {
   await emptyApp(page);
-  await page.goto("/");
+  await page.goto("/dashboard");
   await createAccount(page, "BCP", "100");
   await createMovement(page, "Gasto", "25", "Taxi móvil");
   await page.getByRole("link", { name: /Movimientos/ }).click();
@@ -15,7 +15,7 @@ test("mobile movement sheet, edit/delete and navigation", async ({ page }) => {
   await page.getByText("Taxi móvil").click();
   await page.getByRole("button", { name: /Eliminar movimiento/ }).click();
   await expect(page.getByText("Taxi móvil")).toHaveCount(0);
-  await page.goto("/");
+  await page.goto("/dashboard");
   await page.getByRole("button", { name: "Nuevo movimiento" }).first().click();
   await expect(page.getByLabel("Monto")).toBeFocused();
   await page.keyboard.press("Escape");

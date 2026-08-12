@@ -1,12 +1,13 @@
 # Nexo
 
-Nexo Local V1 es una PWA financiera local-first para organizar finanzas personales y de un pequeño negocio. Los datos viven en `LocalStorage`: no hay cuentas, inicio de sesión, base de datos de servidor ni sincronización en la nube. Después de una primera carga correcta, las rutas y recursos cacheados pueden utilizarse sin conexión en navegadores compatibles.
+Nexo Local V1.1 es una PWA financiera local-first para organizar finanzas personales y de un pequeño negocio. `/` ofrece una presentación pública y `/dashboard` abre la aplicación. Los datos viven en `LocalStorage`: no hay cuentas, inicio de sesión, base de datos de servidor ni sincronización en la nube. Después de una primera carga correcta, las rutas y recursos cacheados pueden utilizarse sin conexión en navegadores compatibles.
 
 ## Características
 
 - **Personal:** cuentas, ingresos, gastos, transferencias, presupuestos, metas y aportes, activos, pasivos, patrimonio y gráficos.
 - **Negocio:** productos, costos unitarios, ganancia, margen, inventario, flujo de caja, estado de resultados, balance general e indicadores financieros.
 - **Sistema:** PWA instalable, funcionamiento offline, backup/importación JSON, exportación CSV y experiencia responsive para desktop y móvil.
+- **Experiencia:** landing pública, perfil local, primer inicio guiado, centro de ayuda y demo aislada.
 
 ## Stack
 
@@ -58,6 +59,10 @@ En el despliegue final puede definirse `NEXT_PUBLIC_APP_URL` con el origen HTTPS
 
 ## Modo demo
 
+Desde la landing, **Probar demo** abre el mismo producto con el dataset determinista de `services/seed.ts`, pero persiste en `nexo-demo:v2:app`. Nunca escribe en `nexo:v2:app`. **Salir de demo** recupera el contexto normal y **Restablecer demo** elimina únicamente el namespace demo.
+
+La variable histórica para entornos dedicados se conserva:
+
 ```bash
 NEXT_PUBLIC_DEMO_DATA=true pnpm dev
 ```
@@ -66,11 +71,11 @@ Con `NEXT_PUBLIC_DEMO_DATA=true`, una instalación sin datos inicia con el datas
 
 ## Persistencia de datos
 
-Nexo utiliza la clave `nexo:v2:app` y migra el legado `nexo:v1:app` cuando es válido. Las escrituras se validan antes de reemplazar el valor. El borrado elimina sólo claves con prefijo `nexo:`. Exporta backups periódicamente: borrar los datos del navegador, cambiar de perfil u origen puede eliminar o aislar la información.
+Nexo utiliza `nexo:v2:app` para datos reales y `nexo-demo:v2:app` para la demo aislada. Migra el legado `nexo:v1:app` cuando es válido. Las escrituras se validan antes de reemplazar el valor. Cada borrado queda limitado a su namespace. Exporta backups periódicamente: borrar los datos del navegador, cambiar de perfil u origen puede eliminar o aislar la información.
 
 ## PWA y modo offline
 
-`app/manifest.ts` define la instalación y `public/sw.js` cachea el shell y recursos de la aplicación. `Cache Storage` no contiene el dataset financiero; éste continúa en `LocalStorage`. Reconectarse no sincroniza con ningún servicio remoto.
+`app/manifest.ts` abre la instalación en `/dashboard` y `public/sw.js` cachea landing, aplicación, ayuda y recursos. `Cache Storage` no contiene datasets financieros; éstos continúan en `LocalStorage`. Reconectarse no sincroniza con ningún servicio remoto.
 
 ## Documentación
 

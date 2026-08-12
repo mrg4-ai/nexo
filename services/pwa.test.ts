@@ -8,7 +8,7 @@ const pngSize=(path:string)=>{const bytes=readFileSync(path);return {width:bytes
 
 describe("PWA contract",()=>{
   it("declares an installable, root-scoped manifest",()=>{
-    expect(manifest()).toMatchObject({name:"Nexo",short_name:"Nexo",start_url:"/",scope:"/",display:"standalone",background_color:"#090d0c",theme_color:"#090d0c"});
+    expect(manifest()).toMatchObject({name:"Nexo",short_name:"Nexo",start_url:"/dashboard",scope:"/",display:"standalone",background_color:"#090d0c",theme_color:"#090d0c"});
     expect(manifest().icons).toEqual(expect.arrayContaining([expect.objectContaining({sizes:"192x192",purpose:"any"}),expect.objectContaining({sizes:"512x512",purpose:"any"}),expect.objectContaining({sizes:"512x512",purpose:"maskable"})]));
   });
 
@@ -18,7 +18,7 @@ describe("PWA contract",()=>{
 
   it("isolates versioned shell caches and never touches LocalStorage",()=>{
     const worker=readFileSync(join(root,"public","sw.js"),"utf8");
-    expect(worker).toContain('CACHE_VERSION = "v3"');
+    expect(worker).toContain('CACHE_VERSION = "v4"');
     expect(worker).toContain("self.skipWaiting()");
     expect(worker).toContain("self.clients.claim()");
     expect(worker).toContain('request.method !== "GET"');
